@@ -1,15 +1,19 @@
-package com.scjp.test;
+package com.scjp.test.annotation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import com.scjp.code.Calculator;
-@DisplayName("Calculate Operation Test")
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CalculatorTest {
 
-	@DisplayName("Test Addition of two number")
+	
+	@Order(4)
 	@Test
 	public void addTest() {
 		Calculator calculator = new Calculator();
@@ -18,7 +22,8 @@ public class CalculatorTest {
 
 	}
 
-	@DisplayName("Test Subtracion of two number")
+
+	@Order(3)
 	@Test
 	public void subtractTest() {
 		Calculator calculator = new Calculator();
@@ -26,7 +31,8 @@ public class CalculatorTest {
 		assertEquals(10, actutalResul);
 	}
 
-	@DisplayName("Test Multiply of two number 😊")
+	
+	@Order(2)
 	@Test
 	public void multiplyTest() {
 		Calculator calculator = new Calculator();
@@ -34,7 +40,7 @@ public class CalculatorTest {
 		assertEquals(50, actualResult);
 	}
 
-	@DisplayName("Test Divide of two number @#$ 🆗")
+	@Order(1)
 	@Test
 	public void divideTest() {
 		Calculator calculator = new Calculator();

@@ -1,45 +1,58 @@
-package com.scjp.test;
+package com.scjp.test.annotation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.scjp.code.Calculator;
-@DisplayName("Calculate Operation Test")
-public class CalculatorTest {
 
-	@DisplayName("Test Addition of two number")
+public class AfterEachDemotest {
+	private Calculator calculator;
+
+	@BeforeEach
+	 void setUp() {
+		calculator = new Calculator();
+		System.out.println("setUp method calling..");
+	}
+
+	@AfterEach
+	void teardown() {
+		calculator=null;
+		System.out.println("Cleaning the resource");
+	}
 	@Test
 	public void addTest() {
-		Calculator calculator = new Calculator();
+
 		int actualResult = calculator.add(10, 20);
 		assertEquals(30, actualResult);
+		System.out.println("Addition method calling..");
 
 	}
 
-	@DisplayName("Test Subtracion of two number")
 	@Test
 	public void subtractTest() {
-		Calculator calculator = new Calculator();
+
 		int actutalResul = calculator.substract(30, 20);
 		assertEquals(10, actutalResul);
+		System.out.println("Subtaction method calling..");
 	}
 
-	@DisplayName("Test Multiply of two number 😊")
 	@Test
 	public void multiplyTest() {
-		Calculator calculator = new Calculator();
+
 		int actualResult = calculator.multiply(5, 10);
 		assertEquals(50, actualResult);
+		System.out.println("multiply method calling..");
+
 	}
 
-	@DisplayName("Test Divide of two number @#$ 🆗")
 	@Test
 	public void divideTest() {
-		Calculator calculator = new Calculator();
+		
 		int actualResult = calculator.divide(10, 5);
 		assertEquals(2, actualResult);
+		System.out.println("Divide method calling..");
 	}
-
 }
