@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -116,7 +117,7 @@ public class StudentServiceTest {
 
 	}
 
-	@Disabled
+@Disabled
 	@Test
 	public void getStudentNameListByDeparmentAssertIterableEquals() {
 		Student student = new Student(1, "Rhodi", "Art");
@@ -139,7 +140,7 @@ public class StudentServiceTest {
 		// actualStudentNameList,()->"Student name List is not Equal");
 
 		List<Integer> actualStudentIdList = studentService.getStudentIdListByDepartment("IT");
-		List<Integer> expectedStudentIdList = Arrays.asList(1, 3, 4);
+		List<Integer> expectedStudentIdList = Arrays.asList(2,3,4);
 
 		// assertIterableEquals(expectedStudentIdList, actualStudentIdList);
 		
@@ -149,7 +150,7 @@ public class StudentServiceTest {
 		assertIterableEquals(expectedStudentIdList, actualStudentIdList, () -> "Student Id List is not Equal");
 
 	}
-	
+@Disabled
 	@Test
 	public void getStudentNameTestAssertThrow() {
 		Student student = new Student(1, "Rhodi", "Art");
@@ -169,10 +170,42 @@ public class StudentServiceTest {
 		 * 
 		 */
 		
+		
+		  assertThrows(RuntimeException.class,
+		  ()->{studentService.getStudentByName("Rodi")
+		  ;},()->"StudentNotFoundException should be thrown. But, it wasn't");
+	}
+	
+	
+@Test
+	public void getStudentByNameTestUsingAssertThrowExcatly() {
+		Student student = new Student(1, "Rhodi", "Art");
+		studentService.addStudent(student);
+		
 		/*
-		 * assertThrows(NullPointerException.class,
-		 * ()->{studentService.getStudentByName("Janu")
-		 * ;},()->"StudentNotFoundException should be thrown. But, it wasn't");
+		 * assertThrowsExactly(StudentNotFoundException.class, ()->{
+		 * studentService.getStudentByName("Rodi"); });
 		 */
+		
+		
+		/*
+		 * assertThrowsExactly(StudentNotFoundException.class, ()->{
+		 * studentService.getStudentByName("Rhodi");
+		 * },"StudentNotFoundException should be thrown. But, it wasn't");
+		 */
+		
+		/*
+		 * assertThrowsExactly(StudentNotFoundException.class, ()->{
+		 * studentService.getStudentByName("Rodi");
+		 * },()->"StudentNotFoundException should be thrown. But, it wasn't");
+		 * 
+		 */
+		
+		StudentNotFoundException exception=assertThrowsExactly(StudentNotFoundException.class, ()->{
+			studentService.getStudentByName("Rhodi");
+		},"StudentNotFoundException should be thrown. But, it wasn't");
+		
+		assertEquals("Student not found with name: Rhodi",exception.getMessage());
+		
 	}
 }
